@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import SDWebImageSwiftUI
 
 
 extension View {
@@ -148,6 +149,7 @@ struct ComicRowView: View{
             
             
                 WebImage(url: extractImage(data: comic.thumbnail))
+                    .resizable()
                     .aspectRatio(contentMode: .fit)
                     .cornerRadius(8)
                     .frame(maxWidth: 150)
@@ -189,7 +191,7 @@ struct ComicRowView: View{
     }
     
     
-    func extractImage(data: [String: String]) -> String{
+    func extractImage(data: [String: String]) -> URL{
         
         let path = data["path"] ?? ""
         let ext = data["extension"] ?? ""
@@ -198,7 +200,7 @@ struct ComicRowView: View{
         
         url.insert("s", at: url.index(url.startIndex, offsetBy: 4))
         
-        return url
+        return URL(string: url)!
     }
     
     func getCreators(data: Comic) -> String{
